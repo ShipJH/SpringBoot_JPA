@@ -16,6 +16,7 @@ import com.jpa.sample.service.Impl.UserServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/user")
@@ -50,7 +51,7 @@ public class UserController {
 	
 	@ApiOperation(value = "유저 삭제하기")
 	@DeleteMapping(value="/deleteUser")
-	public ResponseEntity<String> deleteUser(Long id){
+	public ResponseEntity<String> deleteUser(@ApiParam(value = "고유 ID", type="long") Long id){
 		
 		try {
 			userServiceImpl.delete(id);	
