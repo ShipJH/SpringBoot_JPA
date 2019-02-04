@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://35.221.107.139:3306/kart
+    username: root
+    password: bae123$
+    
+  jpa:
+      hibernate:
+        ddl-auto: update  
+      show-sql: true # 실행 되는 SQL문을 보여 줄지 설정
+      properties:  
+        hibernate.format_sql: true # 형식화된 sql 문을 보여준다. Beautifier 기능이라고 생각하면 된다
+        hibernate.enable_lazy_load_no_trans: true #Lazy Load 를 적용하기 위한 설정
+      database: mysql
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      
+      
+#      spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
