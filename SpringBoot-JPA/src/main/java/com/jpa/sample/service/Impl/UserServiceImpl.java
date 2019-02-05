@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService{
 		userRepository.delete(user);
 	}
 
+	@Override
+	public List<User> findByAddrContains(String addr) {
+		List<User> users = userRepository.findByAddrContains(addr);
+		return users;
+	}
+
 }

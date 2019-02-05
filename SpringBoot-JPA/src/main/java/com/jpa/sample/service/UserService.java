@@ -12,4 +12,5 @@ public interface UserService {
 	
 	public void delete(Long id);
 	
+	public List<User> findByAddrContains(String addr);
 }
