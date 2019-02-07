@@ -18,15 +18,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 //
 //	@Bean
 //	public Docket user() {
-//		  return this.config("1.À¯Àú°ü¸®", Predicates.or(
+//		  return this.config("1.ìœ ì €ê´€ë¦¬", Predicates.or(
 //	                PathSelectors.regex("/user/*")
-//	        ));
-//	}
-	
-//	@Bean
-//	public Docket board() {
-//		  return this.config("4.°Ô½ÃÆÇ", Predicates.or(
-//	                PathSelectors.regex("/board/40.*")
 //	        ));
 //	}
 	
@@ -34,9 +27,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket  config(String groupName, Predicate path) {
         return new Docket(DocumentationType.SWAGGER_2).groupName(groupName).useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.jpa.sample.controller")) // ÇöÀç RequestMappingÀ¸·Î ÇÒ´çµÈ ¸ğµç URL ¸®½ºÆ®¸¦ ÃßÃâ
-                /*.paths(PathSelectors.ant("/*")) // ÇØ´ç URLµé ÇÊÅÍ¸µ*/
-                .paths(path)	// ¸ğµç ¸ÊÇÎÇÑ°É ´ÙÀâ´Â°Å
+                .apis(RequestHandlerSelectors.basePackage("com.jpa.sample.controller")) // í˜„ì¬ RequestMappingìœ¼ë¡œ í• ë‹¹ëœ ëª¨ë“  URL ë¦¬ìŠ¤íŠ¸ë¥¼ ì¶”ì¶œ
+                /*.paths(PathSelectors.ant("/*")) // í•´ë‹¹ URLë“¤ í•„í„°ë§*/
+                .paths(path)	// ëª¨ë“  ë§µí•‘í•œê±¸ ë‹¤ì¡ëŠ”ê±°
                 .build();
     }
     

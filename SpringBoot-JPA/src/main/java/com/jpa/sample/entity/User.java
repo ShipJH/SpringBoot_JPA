@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -16,13 +17,13 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(value = "∞Ì¿Ø ID", dataType = "long", position=0)
+	@ApiModelProperty(value = "Í≥†Ïú† ID", dataType = "long", position=0)
 	private Long id;
 	
-	@ApiModelProperty(value = "¿Ø¿˙∏Ì", dataType = "String", position=10)
+	@ApiModelProperty(value = "Ïù¥Î¶Ñ", dataType = "String", position=10)
 	private String name;
 	
-	@ApiModelProperty(value = "¡÷º“", dataType = "String", position=20)
+	@ApiModelProperty(value = "Ï£ºÏÜå", dataType = "String", position=20)
 	private String addr;
 	
 }

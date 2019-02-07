@@ -3,6 +3,7 @@ package com.jpa.sample.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.sample.entity.User;
@@ -17,18 +19,17 @@ import com.jpa.sample.service.Impl.UserServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/user")
-@Api(tags = "À¯Àú°ü¸® API", value = "À¯Àú°ü¸® API", description = "À¯Àú°ü¸® API")
+@Api(tags = "ìœ ì €ê´€ë¦¬ API", value = "ìœ ì €ê´€ë¦¬ API", description = "ìœ ì €ê´€ë¦¬ API")
 public class UserController {
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 	
 	
-	@ApiOperation(value = "À¯Àú ¸ñ·Ïº¸±â")
+	@ApiOperation(value = "ìœ ì € ëª©ë¡ë³´ê¸°")
 	@GetMapping(value="/allUsers")
 	public ResponseEntity<List<User>> findByAllUsers(){
 		
@@ -37,7 +38,7 @@ public class UserController {
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "À¯Àú µî·ÏÇÏ±â")
+	@ApiOperation(value = "ìœ ì € ë“±ë¡í•˜ê¸°")
 	@PostMapping(value="/saveUser")
 	public ResponseEntity<User> saveUser(User user){
 		
@@ -50,9 +51,11 @@ public class UserController {
 		return new ResponseEntity<User>(resultUser, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "À¯Àú »èÁ¦ÇÏ±â")
+	@ApiOperation(value = "ìœ ì € ì‚­ì œí•˜ê¸°")
 	@DeleteMapping(value="/deleteUser")
-	public ResponseEntity<String> deleteUser(@ApiParam(value = "°íÀ¯ ID", type="long") Long id){
+	public ResponseEntity<String> deleteUser(@RequestParam(name="id") Long id){
+		
+		System.out.println("@@@ > " + id);
 		
 		try {
 			userServiceImpl.delete(id);	
@@ -64,7 +67,7 @@ public class UserController {
 		return new ResponseEntity<String>("", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "ÁÖ¼Ò·Î À¯Àú Ã£±â")
+	@ApiOperation(value = "ì£¼ì†Œë¡œ ìœ ì € ì°¾ê¸°")
 	@GetMapping(value="/addrSearch/{addr}")
 	public ResponseEntity<List<User>> addrSearch(@PathVariable String addr){
 		
@@ -72,4 +75,19 @@ public class UserController {
 		
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
+	
+	
+	
+	@ApiOperation(value = "ì£¼ì†Œë¡œ ìœ ì € ì°¾ê¸° í˜ì´ì§•")
+	@GetMapping(value="/addrSearchPage/{addr}/{pageNo}")
+	public ResponseEntity<Page<User>> addrSearchPaging(@PathVariable String addr, @PathVariable int pageNo){
+		
+		Page<User> users = userServiceImpl.findByAddrContainsPage(addr,pageNo);
+		
+		return new ResponseEntity<Page<User>>(users, HttpStatus.OK);
+	}
+	
+	
+	
+	
 }
