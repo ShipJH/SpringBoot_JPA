@@ -42,4 +42,7 @@ dependencies {
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
 	
 	
+	//mail
+	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.1'
+	
 }
