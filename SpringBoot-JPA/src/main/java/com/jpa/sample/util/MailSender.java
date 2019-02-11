@@ -12,9 +12,9 @@ import javax.mail.internet.MimeMessage;
 public class MailSender {
 	
 	private static String strMailServerPort = "25";
-    private static String strMailFrom       = "ship_reappearance@naver.com"; //보내는 사람 메일 주소 
+//    private static String strMailFrom       = "ship_reappearance@naver.com"; //보내는 사람 메일 주소 
     
-    public static Boolean sendMail(String strMailTo, String strTitle, String strContents) throws Exception {
+    public static Boolean sendMail(String strMailTo, String strMailFrom ,String strTitle, String strContents) throws Exception {
         Boolean result = true;    
         try {
             Properties props = new Properties();
