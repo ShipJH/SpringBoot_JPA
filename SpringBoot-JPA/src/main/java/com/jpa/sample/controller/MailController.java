@@ -15,8 +15,8 @@ public class MailController {
 	@ResponseBody
 	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
 	public String sendMail(HttpServletRequest req) throws Exception {
-	    boolean result =MailSender.sendMail("qocngus@gmail.com", "sendmail test title", "sendmail test contents");
-	    String msg = "";
+		boolean result =MailSender.sendMail("rose1223@naver.com", "테스트..", "자바단에서 메일 쏴봅니다. 잘갔으면 답장좀요 ^^ ");
+		String msg = "";
 	    if(result)
 	        msg = "success";
 	    else

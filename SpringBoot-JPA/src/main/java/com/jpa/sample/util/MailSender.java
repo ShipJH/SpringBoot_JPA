@@ -10,38 +10,32 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSender {
+	
 	private static String strMailServerPort = "25";
-//	private static String strMailFrom = "qocngus@gmail.com"; // º¸³»´Â »ç¶÷ ¸ŞÀÏ ÁÖ¼Ò
-	private static String strMailFrom = "ship_reappearance@naver.com"; // º¸³»´Â »ç¶÷ ¸ŞÀÏ ÁÖ¼Ò
-
-	public static Boolean sendMail(String strMailTo, String strTitle, String strContents) throws Exception {
-		Boolean result = true;
-		try {
-			Properties props = new Properties();
-			props.put("mail.smtp.host", "106.10.51.157"); // sendmail ip address
-			props.put("mail.smtp.port", strMailServerPort); // 25
-			props.put("mail.smtp.auth", "false");
-			
-//			props.put("mail.smtp.timeout", "30000");
-//			props.put("mail.smtp.ssl.enable", "true");
-			Session msgSession = Session.getDefaultInstance(props, null);
-			MimeMessage msg = new MimeMessage(msgSession);
-			InternetAddress from = new InternetAddress(strMailFrom, "bjh", "UTF-8"); // (º¸³»´Â»ç¶÷ ¸ŞÀÏ ÁÖ¼Ò , Ç¥½Ã ÇÒ ÀÌ¸§ ,
-																							// ¹®ÀÚ¼Â)
-
-			msg.setFrom(from);
-			InternetAddress to = new InternetAddress(strMailTo); // ¹Ş´Â»ç¶÷ ¸ŞÀÏÁÖ¼Ò
-			msg.setRecipient(Message.RecipientType.TO, to);
-			msg.setSubject(strTitle); // ¸ŞÀÏ Á¦¸ñ
-			msg.setContent(strContents, "text/html; charset=UTF-8"); // ¸ŞÀÏ ³»¿ë
-
-			Transport.send(msg);
-		} catch (MessagingException e) {
-			result = false;
-			System.out.println(e);
-			System.out.println("---------------------");
-			e.getStackTrace();
-		}
-		return result;
-	}
+    private static String strMailFrom       = "ship_reappearance@naver.com"; //ë³´ë‚´ëŠ” ì‚¬ëŒ ë©”ì¼ ì£¼ì†Œ 
+    
+    public static Boolean sendMail(String strMailTo, String strTitle, String strContents) throws Exception {
+        Boolean result = true;    
+        try {
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "106.10.51.157"); // sendmail ip address
+            props.put("mail.smtp.port", strMailServerPort); // 25
+            props.put("mail.smtp.auth", "false");
+            Session msgSession = Session.getDefaultInstance(props, null);
+            MimeMessage msg = new MimeMessage(msgSession);
+            InternetAddress from = new InternetAddress(strMailFrom,"ë°°ì¬í˜„","UTF-8");//(ë³´ë‚´ëŠ”ì‚¬ëŒ ë©”ì¼ ì£¼ì†Œ , í‘œì‹œ í•  ì´ë¦„ , ë¬¸ìì…‹)
+    
+            msg.setFrom(from);
+            InternetAddress to = new InternetAddress(strMailTo);// ë°›ëŠ”ì‚¬ëŒ ë©”ì¼ì£¼ì†Œ
+            msg.setRecipient(Message.RecipientType.TO, to);
+            msg.setSubject(strTitle);// ë©”ì¼ ì œëª©
+            msg.setContent(strContents, "text/html; charset=UTF-8");//ë©”ì¼ ë‚´ìš©
+    
+            Transport.send(msg);
+        } catch(MessagingException e) {
+            result = false;
+            System.out.println(e);    
+        }
+        return result;
+    }
 }
