@@ -22,6 +22,7 @@ public class PMServiceImpl implements PMService{
 	@Autowired
 	private PhoneRepository pr;
 
+	@Override
 	public void saveMember(){
 		Member first = new Member("bae");
 		Member second = new Member("hwang");
@@ -36,6 +37,7 @@ public class PMServiceImpl implements PMService{
 		pr.save(p);
 	}
 
+	@Override
 	public List<Phone> print(){
 		// @ManyToOne의 fetch 기본전략은 EAGER이다.
 		// 따라서 @Transactional 어노테이션이 없더라도
@@ -50,6 +52,7 @@ public class PMServiceImpl implements PMService{
 		return phone;
 	}
 
+	@Override
 	@Transactional
 	public List<Member> lazyPrint(){
 		// @OneToMany의 fetch 기본전략은 LAZY이다.
@@ -66,6 +69,7 @@ public class PMServiceImpl implements PMService{
 		return member;
 	}
 
+	@Override
 	public List<Member> lazyPrint2(){
 		// Entity가 LAZY 전략일지라도
 		// LAZY 전략을 쓰는 객체를 사용하지 않는다면
@@ -78,8 +82,18 @@ public class PMServiceImpl implements PMService{
 		return member;
 	}
 
+	@Override
 	public void deletAll() {
 		mr.deleteAll();
 		pr.deleteAll();
+	}
+
+	
+	@Override
+	public List<Phone> getJoin() {
+		
+		List<Phone> phones = pr.getJoin();
+		
+		return phones;
 	}
 }

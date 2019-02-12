@@ -91,9 +91,19 @@ public class TestController {
 	}	
 	
 	@ApiOperation(value = "조인 한 값 가져오기")
-	@GetMapping
+	@GetMapping(value = "/selectJoin")
 	public ResponseEntity<String> selectJoin(){
 		
+		List<Phone> phones = pmServiceImpl.getJoin();
+		
+		for(Phone p : phones) {
+			
+			System.out.println("폰 고유번호 :" + p.getSeq());
+			System.out.println("폰 번호 : " + p.getNo());
+			
+			System.out.println("멤버정보  멤버 이름 : " + p.getMember().getName());
+			System.out.println("멤버정보  멤버 고유번호 : " + p.getMember().getSeq());
+		}
 		
 		
 		return new ResponseEntity<String>("OK~", HttpStatus.OK);

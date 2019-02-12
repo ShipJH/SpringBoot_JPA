@@ -11,4 +11,6 @@ public interface PMService {
 	public List<Member> lazyPrint();
 	public List<Member> lazyPrint2();
 	public void deletAll();
+	
+	public List<Phone> getJoin();
 }
