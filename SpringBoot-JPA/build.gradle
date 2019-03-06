@@ -1,12 +1,17 @@
 buildscript {
 	ext {
 		springBootVersion = '2.1.2.RELEASE'
+		//querydsl
+		querydslPluginVersion = '1.0.10'
 	}
 	repositories {
 		mavenCentral()
+		maven { url "https://plugins.gradle.org/m2/" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		//querydsl
+		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}")
 	}
 }
 
@@ -26,16 +31,25 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//querydsl
+	compile("com.querydsl:querydsl-jpa:4.1.4")
+    compile("com.querydsl:querydsl-apt:4.1.4")
+    
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	runtimeOnly 'mysql:mysql-connector-java'
+	//runtimeOnly 'mysql:mysql-connector-java'
+	compile('com.h2database:h2')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//testCompile('org.springframework.boot:spring-boot-starter-test')
+	//testImplementation 'junit:junit:4.12'
 	
-	//lombok √ﬂ∞° 
+	//lombok ÔøΩﬂ∞ÔøΩ 
 	compile "org.projectlombok:lombok:1.16.6"
 	
 
-	// Ω∫ø˛∞≈ ºº∆√	
+	// ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ	
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
@@ -43,6 +57,43 @@ dependencies {
 	
 	
 	//mail
-	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.1'
-	
+	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.1'	
+}
+
+// querydsl Ï†ÅÏö©
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+def querydslSrcDir = 'src/main/generated'
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslSrcDir]
+        }
+    }
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    file(new File(projectDir, querydslSrcDir)).deleteDir()
+    file(new File(projectDir, querydslSrcDir)).mkdirs()
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydsl
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = file(querydslSrcDir)
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+}
+
+clean.doLast {
+    file(new File(projectDir, "/src/main/generated")).deleteDir()
 }
